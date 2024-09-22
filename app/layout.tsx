@@ -1,7 +1,10 @@
 import './globals.css';
-import localFont from 'next/font/local';
 import type { Metadata } from 'next';
-import { ThemeProvider } from 'config/material-tailwind-theme-provider';
+import localFont from 'next/font/local';
+import Header from 'components/header';
+import Footer from 'components/footer';
+import ReactQueryClientProvider from 'config/ReactQueryClientProvider';
+import RecoilProvider from 'config/RecoilProvider';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -38,7 +41,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <RecoilProvider>
+          <ReactQueryClientProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ReactQueryClientProvider>
+        </RecoilProvider>
       </body>
     </html>
   );
